@@ -48,7 +48,7 @@ int GetUserResponse(){
 }
 
 string Questions[5][3] = // [PathNumber][0] for question, [PathNumber][1] for truth, [PathNumber][2]for lie
-{   {"Is '<<' an isertion or extraction operator? ", "Instertion", "Extraction" },
+{   {"Is '<<' an insertion or extraction operator? ", "Insertion", "Extraction" },
     {"How many bits are in a byte?", "8", "16"},
     {"Are arrays or vectors dynamic?", "Vectors", "Arrays" },
     
