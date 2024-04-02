@@ -25,7 +25,7 @@ int GetPathNumber(){
 
 int GetUserResponse(){
     string Input;
-    int TL[2] = {1,2}; // for truth, 2 for lie
+    int TL[2] = {1,2}; // 1 for truth, 2 for lie
     int FInput;
     cin >> Input;
     int x=0;
