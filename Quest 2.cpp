@@ -13,10 +13,10 @@ void GameStart(){
 
 int GetPathNumber(){
     int PathNumber=0;
-    while (PathNumber==0 || PathNumber<1 && PathNumber>5){
-        cout << "There are 5 paths ahead. Choose a path to enter (1-5): " << endl;
+    while (PathNumber < 1 || PathNumber > 5){
+        cout << "There are 5 paths ahead. Choose a path to enter (1-5): ";
         cin >> PathNumber;
-        if (PathNumber<1 || PathNumber>5){
+        if (PathNumber < 1 || PathNumber > 5){
             cout << "There is no path in " << PathNumber << " direction! Choose again." << endl;
         }
     }
@@ -47,6 +47,21 @@ int GetUserResponse(){
     return FInput;
 }
 
+void runChecker(int UserResponse, int GuardianType, int& correct, int& incorrect) {
+    if (UserResponse==1 && GuardianType==1){
+        cout << "\nCorrect! The Guardian was telling the truth. The Guardian points you in the right direction\n";
+        correct += 1;
+   }
+    else if (UserResponse==2 && GuardianType==2){
+       cout << "\nNice! The Guardian was lying. The Guardian points you in the right direction\n";
+       correct += 1;
+   }
+    else {
+       cout << "\nWrong! The Guardian offers no directions and you feel more lost\n";
+       incorrect += 1;
+   }
+}
+
 string Trevor_Questions[5][3] = // [PathNumber][0] for question, [PathNumber][1] for truth, [PathNumber][2]for lie
 {   {"Is '<<' an insertion or extraction operator? ", "Insertion", "Extraction" },
     {"How many bits are in a byte?", "8", "16"},
@@ -58,18 +73,18 @@ string Trevor_Questions[5][3] = // [PathNumber][0] for question, [PathNumber][1]
 
 string Ephraim_Questions[5][3] = // [PathNumber][0] for question, [PathNumber][1] for truth, [PathNumber][2]for lie
 {   
-    {"Do I collect shoes?", "Yes", "No"},
-    {"How many times have I been to Japan", "1", "4"},
-    {"Have I seen the Gundam Statues in person", "Yes", "No"},
-    {"Do I play League of Legends", "Yes", "No"},
-    {"Am I a CS major", "Yes", "No"}
+    {"Do you collect shoes?", "Nah, I'm broke", "Absolutely!"},
+    {"How many times have you been to Japan", "4 times", "2 times"},
+    {"Have you seen the Gundam Statues in person", "Yes", "No"},
+    {"Do you enjoy playing League of Legends", "No", "Yes"},
+    {"Are you a CS major", "Yes", "No"}
     
 };
 
 string Chad_Questions[5][3] = // [PathNumber][0] for question, [PathNumber][1] for truth, [PathNumber][2]for lie
 {   
-    {"Do I play league of legends?", "Yes", "No"},
-    {"How many seasons did I reach Gold in League of Legends", "1", "3"},
+    {"Do you play league of legends?", "Yes", "No"},
+    {"How many seasons did you reach Gold in League of Legends", "1", "3"},
     {"Question 3", "Yes", "No"},
     {"Question 4", "Yes", "No"},
     {"Question 5", "Yes", "No"}
@@ -78,8 +93,8 @@ string Chad_Questions[5][3] = // [PathNumber][0] for question, [PathNumber][1] f
 
 string Oscar_Questions[5][3] = // [PathNumber][0] for question, [PathNumber][1] for truth, [PathNumber][2]for lie
 {   
-    {"Do I collect pennies?", "Yes", "No"},
-    {"How many days do I play video games", "1", "4"},
+    {"Do you collect pennies?", "No", "Yes"},
+    {"How many days do you play video games", "I don't", "4"},
     {"Question 3", "Yes", "No"},
     {"Question 4", "Yes", "No"},
     {"Question 5", "Yes", "No"}
@@ -100,80 +115,61 @@ string Guardians[]=
     {"Ephraim", "Chad", "Trevor", "Oscar", "Sophia"}
 ;
 
-int main(){
-   int x=0;
-   GameStart();
-   
-   int correct = 0;
-   int incorrect = 0;
-   
-   while(x==0){
-   int PathNumber;
-   PathNumber=GetPathNumber();
-   
-   srand(time(NULL));
-   int GuardianType = rand() % 2+1;
-   int Guardian = rand() % 5;
-   
-   //this is to determine what guardian type 1=truth 2=lie for fact checking Code
-   //will delete after
-   cout << "Guardian type = " << GuardianType << "\n" << endl;
-   
-   cout << Guardians[Guardian] << " asks you the question ";
-   
+string guardianQuestion(int PathNumber, int Guardian, int GuardianType){
+    string question;
     if (Guardian == 0) {
-       cout << Ephraim_Questions[PathNumber-1][0] << "\n"
-       << Guardians[Guardian] << " responds: " << Ephraim_Questions[PathNumber-1][GuardianType] << endl;
-   }
+        question = Ephraim_Questions[PathNumber-1][0] + "?" +  '"' + "\n"
+            + Guardians[Guardian] + " responds: " + Ephraim_Questions[PathNumber-1][GuardianType];
+        }
     else if (Guardian == 1) {
-       cout << Chad_Questions[PathNumber-1][0] << "\n"
-       << Guardians[Guardian] << " responds: " << Chad_Questions[PathNumber-1][GuardianType];
-   }
+        question = Chad_Questions[PathNumber-1][0] + "?" +  '"' + "\n"
+            + Guardians[Guardian] + " responds: " + Chad_Questions[PathNumber-1][GuardianType];
+        }
     else if (Guardian == 2) {
-       cout << Trevor_Questions[PathNumber-1][0] << "\n"
-       << Guardians[Guardian] << " responds: " << Trevor_Questions[PathNumber-1][GuardianType];
-   }
-   else if (Guardian == 3) {
-       cout << Oscar_Questions[PathNumber-1][0] << "\n"
-       << Guardians[Guardian] << " responds: " << Oscar_Questions[PathNumber-1][GuardianType];
-   }
-   else if (Guardian == 4) {
-       cout << Sophia_Questions[PathNumber-1][0] << "\n"
-       << Guardians[Guardian] << " responds: " << Sophia_Questions[PathNumber-1][GuardianType];
-   }
-   
-   
-   cout << "\nIs the Guardian telling a truth or lie? " << endl;
-   
-   
-   cout << "Your response(truth or lie): ";
-   int UserResponse=GetUserResponse();
-   
-   if (UserResponse==1 && GuardianType==1){
-       cout << "\nCorrect! The Guardian was telling the truth. The Guardian points you in the right direction\n";
-       correct += 1;
-   }
-   else if (UserResponse==2 && GuardianType==2){
-       cout << "\nNice! The Guardian was lying. The Guardian points you in the right direction\n";
-       correct += 1;
-   }
-   else {
-       cout << "\nWrong! The Guardian offers no directions and you feel more lost\n";
-       incorrect += 1;
-   }
-   
-   //this will be taken out but just to count how many times they got it correct and incorrect
-   cout << "Correct: " << correct << endl;
-   cout << "Incorrect " << incorrect << endl;
-   
-   if (correct == 3){
-       x = 1;
-   }
-   else {
-       x = 0;
-   }
+        question = Trevor_Questions[PathNumber-1][0] + "?" +  '"' + "\n"
+            + Guardians[Guardian] + " responds: " + Trevor_Questions[PathNumber-1][GuardianType];
+        }
+    else if (Guardian == 3) {
+        question = Oscar_Questions[PathNumber-1][0] + "?" + '"' + "\n"
+            + Guardians[Guardian] + " responds: " + Oscar_Questions[PathNumber-1][GuardianType];
+        }
+    else if (Guardian == 4) {
+        question = Sophia_Questions[PathNumber-1][0] + "?" +  '"' + "\n"
+            + Guardians[Guardian] + " responds: " + Sophia_Questions[PathNumber-1][GuardianType];
+        }
+    return question;
 }
 
-cout << "Congrats! You made it out!"; 
-return 0;
+int main(){
+   int correct = 0;
+   int incorrect = 0;
+   int totalQuestions = 0;
+   
+   GameStart();
+
+   while(correct < 3){
+        int PathNumber;
+        PathNumber=GetPathNumber();
+   
+        srand(time(NULL));
+        int GuardianType = rand() % 2+1;
+        int Guardian = rand() % 5;
+        
+        cout << "You have chosen Path "<< PathNumber << "\n" << endl;
+        
+        cout << "You ask " << Guardians[Guardian] << " the question " << '"';
+        string questionResponse = guardianQuestion(PathNumber, Guardian, GuardianType);
+        cout << questionResponse;
+
+        cout << "\nIs the Guardian telling a truth or lie? " << endl;
+        cout << "Your response(truth or lie): ";
+   
+        int UserResponse=GetUserResponse();
+   
+        runChecker(UserResponse, GuardianType, correct, incorrect);
+    }
+
+    totalQuestions = correct + incorrect; 
+    cout << "Congrats! You made it out! It took you " << totalQuestions << " questions to get out"; 
+    return 0;
 }
