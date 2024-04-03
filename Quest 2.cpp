@@ -4,9 +4,9 @@
 using namespace std;
 
 void GameStart(){
-    cout << "Welcome to the Labyrinth of Truths and Lies\n"
-    << "Many Guardians who tell only truths or only lies guard the path ahead \n"
-    << "Find your way by asking the Guardians Questions\n"
+    cout << "Welcome to the Labyrinth of Truths and Lies.\n"
+    << "Many Guardians who tell only truths or only lies guard the path ahead.\n"
+    << "Find your way by asking the Guardians Questions.\n"
     << "Answer 5 riddles correctly to escape, or stay forever lost!\n\n";
 }
 
