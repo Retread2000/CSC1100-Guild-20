@@ -8,7 +8,7 @@ void GameStart(){
     cout << "Welcome to the Labyrinth of Truths and Lies\n"
     << "Many Guardians who tell only truths or only lies guard the path ahead \n"
     << "Find your way by asking the Guardians Questions\n"
-    << "Answer 3 riddles correctly to escape, or stay forever lost!\n\n";
+    << "Answer 5 riddles correctly to escape, or stay forever lost!\n\n";
 }
 
 int GetPathNumber(){
@@ -147,7 +147,7 @@ int main(){
    
    GameStart();
 
-   while(correct < 3){
+   while(correct < 5){
         int PathNumber;
         PathNumber=GetPathNumber();
    
