@@ -1,6 +1,5 @@
 #include <iostream>
 #include <cstdlib>
-#include <cctype>
 #include <ctime>
 using namespace std;
 
