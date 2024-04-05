@@ -102,11 +102,11 @@ string Oscar_Questions[5][3] = // [PathNumber][0] for question, [PathNumber][1] 
 
 string Sophia_Questions[5][3] = // [PathNumber][0] for question, [PathNumber][1] for truth, [PathNumber][2]for lie
 {   
-    {"Question 1", "Yes", "No"},
-    {"Question 2", "Yes", "No"},
-    {"Question 3", "Yes", "No"},
-    {"Question 4", "Yes", "No"},
-    {"Question 5", "Yes", "No"}
+    {"Do you prefer coding over technical work?", "Yes", "No"},
+    {"Stranded on a desert island, would you go for a magical bowl of mac&cheese or a sandwich of choice?", "Mac&cheese", "Sandwich"},
+    {"Do you play more than one musical instrument?", "Yes", "No"},
+    {"Would you accept a pet eel from a pet eel distribution system?", "Yes", "No"},
+    {"Are you right handed or left handed?", "right handed", "left handed"}
     
 };
 
