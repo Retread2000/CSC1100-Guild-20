@@ -65,7 +65,7 @@ string Trevor_Questions[5][3] = // [PathNumber][0] for question, [PathNumber][1]
 {   {"Is '<<' an insertion or extraction operator? ", "Insertion", "Extraction" },
     {"How many bits are in a byte?", "8", "16"},
     {"Are arrays or vectors dynamic?", "Vectors", "Arrays"},
-    {"You should always use pointers before references when trying to solve a problem", "Hell No!", "Indeed"},
+    {"Should you use pointers before references when trying to solve a problem", "Hell No!", "Indeed"},
     {"What is correct way to read the '&' symbol in a pointer?", "Address of", "Ampersand"}
     
 };
