@@ -65,25 +65,25 @@ string Trevor_Questions[5][3] = // [PathNumber][0] for question, [PathNumber][1]
 {   {"Is '<<' an insertion or extraction operator? ", "Insertion", "Extraction" },
     {"How many bits are in a byte?", "8", "16"},
     {"Are arrays or vectors dynamic?", "Vectors", "Arrays"},
-    {"Question 4", "Yes", "No"},
-    {"Question 5", "Yes", "No"}
+    {"You should always use pointers before references when trying to solve a problem", "Hell No!", "Indeed"},
+    {"What is correct way to read the '&' symbol in a pointer?", "Address of", "Ampersand"}
     
 };
 
 string Ephraim_Questions[5][3] = // [PathNumber][0] for question, [PathNumber][1] for truth, [PathNumber][2]for lie
 {   
     {"Do you collect shoes?", "Nah, I'm broke", "Absolutely!"},
-    {"How many times have you been to Japan", "4 times", "2 times"},
-    {"Have you seen the Gundam Statues in person", "Yes", "No"},
-    {"Do you enjoy playing League of Legends", "No", "Yes"},
-    {"Are you a CS major", "Yes", "No"}
+    {"How many times have you been to Japan?", "4 times", "2 times"},
+    {"Have you seen the Gundam Statues in person?", "Yes", "No"},
+    {"Do you enjoy playing League of Legends?", "No", "Yes"},
+    {"Are you a CS major?", "Yes", "No"}
     
 };
 
 string Chad_Questions[5][3] = // [PathNumber][0] for question, [PathNumber][1] for truth, [PathNumber][2]for lie
 {   
     {"Do you play league of legends?", "Yes", "No"},
-    {"How many seasons did you reach Gold in League of Legends", "1", "3"},
+    {"How many seasons did you reach Gold in League of Legends?", "1", "3"},
     {"Question 3", "Yes", "No"},
     {"Question 4", "Yes", "No"},
     {"Question 5", "Yes", "No"}
@@ -93,7 +93,7 @@ string Chad_Questions[5][3] = // [PathNumber][0] for question, [PathNumber][1] f
 string Oscar_Questions[5][3] = // [PathNumber][0] for question, [PathNumber][1] for truth, [PathNumber][2]for lie
 {   
     {"Do you collect pennies?", "No", "Yes"},
-    {"How many days do you play video games", "I don't", "4"},
+    {"How many days do you play video games per week?", "I don't", "4"},
     {"Question 3", "Yes", "No"},
     {"Question 4", "Yes", "No"},
     {"Question 5", "Yes", "No"}
