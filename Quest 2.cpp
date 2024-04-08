@@ -1,8 +1,9 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+#include <chrono>
 using namespace std;
-
+using namespace std::chrono;
 void GameStart(){
     cout << "Welcome to the Labyrinth of Truths and Lies.\n"
     << "Many Guardians who tell only truths or only lies guard the path ahead.\n"
@@ -145,6 +146,7 @@ int main(){
    int totalQuestions = 0;
    
    GameStart();
+   auto startTime = high_resolution_clock::now();
 
    while(correct < 5){
         int PathNumber;
@@ -167,8 +169,9 @@ int main(){
    
         runChecker(UserResponse, GuardianType, correct, incorrect);
     }
-
+    auto endTime = high_resolution_clock::now();
+    auto duration = duration_cast<seconds>(endTime - startTime);
     totalQuestions = correct + incorrect; 
-    cout << "Congrats! You made it out! It took you " << totalQuestions << " questions to get out"; 
+    cout << "Congrats! You made it out! It took you " << totalQuestions << " questions to get out over " << duration.count() << " seconds."; 
     return 0;
 }
