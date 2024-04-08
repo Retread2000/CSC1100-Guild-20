@@ -62,11 +62,11 @@ void runChecker(int UserResponse, int GuardianType, int& correct, int& incorrect
 }
 
 string Trevor_Questions[5][3] = // [PathNumber][0] for question, [PathNumber][1] for truth, [PathNumber][2]for lie
-{   {"Is '<<' an insertion or extraction operator? ", "Insertion", "Extraction" },
-    {"How many bits are in a byte?", "8", "16"},
-    {"Are arrays or vectors dynamic?", "Vectors", "Arrays"},
-    {"Should you use pointers before references when trying to solve a problem", "Hell No!", "Indeed"},
-    {"What is correct way to read the '&' symbol in a pointer?", "Address of", "Ampersand"}
+{   {"How many pets do you have? ", "3", "none" },
+    {"Whats your favorite type of icecream?", "Vanilla", "Rocky Road"},
+    {"What's your favorite way to play games?", "PC", "XBOX"},
+    {"What year of college are you in?", "2nd", "1st"},
+    {"What was your major before CS?", "Finance", "Neuroscience"}
     
 };
 
