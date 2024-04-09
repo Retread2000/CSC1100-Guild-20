@@ -93,11 +93,11 @@ string Chad_Questions[5][3] = // [PathNumber][0] for question, [PathNumber][1] f
 
 string Oscar_Questions[5][3] = // [PathNumber][0] for question, [PathNumber][1] for truth, [PathNumber][2]for lie
 {   
-    {"Do you collect pennies?", "No", "Yes"},
-    {"How many days do you play video games per week?", "I don't", "4"},
-    {"Question 3", "Yes", "No"},
-    {"Question 4", "Yes", "No"},
-    {"Question 5", "Yes", "No"}
+    {"Do you have a pennies collection?", "No", "Yes"},
+    {"How many days do you play video games per week?", "7", "0"},
+    {"Have you ever broken a bone", "No I haven't", "Yeah"},
+    {"Have you traveled to over 25 countries", "No", "Yes"},
+    {"Who do you think would win in a fight a lion or a bear", "bear", "lion"}
     
 };
 
