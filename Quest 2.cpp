@@ -84,10 +84,10 @@ string Ephraim_Questions[5][3] = // [PathNumber][0] for question, [PathNumber][1
 string Chad_Questions[5][3] = // [PathNumber][0] for question, [PathNumber][1] for truth, [PathNumber][2]for lie
 {   
     {"Do you play league of legends?", "Yes", "No"},
-    {"How many seasons did you reach Gold in League of Legends?", "1", "3"},
-    {"Question 3", "Yes", "No"},
-    {"Question 4", "Yes", "No"},
-    {"Question 5", "Yes", "No"}
+    {"What is your favorite color?", "Green", "Blue"},
+    {"Do you prefer to Ski or Snowboard?", "Ski", "Snowboard"},
+    {"Do you have any pets?", "No", "Yes"},
+    {"Do you live on campus?", "No", "Yes"}
     
 };
 
