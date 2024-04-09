@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-
+#include <limits>
 using namespace std;
 
 class CaesarCipher { // base class
@@ -11,16 +11,23 @@ class CaesarCipher { // base class
         string encode(const string& message) { // encode message method
             string newMsg = "";
             for (int i = 0; i < message.size(); i++) { // iterate through message string
-                newMsg.push_back(char(message[i] + shiftValue)); // add character to encoded string
-                if (isupper(message[i])) {
-                    if (newMsg[i] > 'Z') { // adjust characters near the end of the alphabet
-                        newMsg[i] -= 26;
+                if (isalpha(message[i])) {
+                    int n = char(message[i] + shiftValue);
+                    if (isupper(message[i])) {
+                        if (int(message[i] + shiftValue) > 90) { // adjust characters near the end of the alphabet
+                            n = char(message[i] + shiftValue) - 26;
+                        }
+                        newMsg.push_back(char(n)); // add character to encoded string
+                    }
+                    else {
+                        if (int(message[i] + shiftValue) > 122) {
+                            n = char(message[i] + shiftValue) - 26;
+                        }
+                        newMsg.push_back(n); // add character to encoded string
                     }
                 }
                 else {
-                    if (newMsg[i] > 'z') {
-                        newMsg[i] -= 26;
-                    }
+                    newMsg.push_back(' ');
                 }
             }
             return newMsg;
@@ -37,16 +44,23 @@ class CaesarCipher { // base class
         string decode(const string& eMsg) { // decode message method
             string dMsg = "";
             for (int i = 0; i < eMsg.size(); i++) { // iterate through message string
-                dMsg.push_back(char(eMsg[i] - shiftValue)); //add character to decoded string
-                if (isupper(eMsg[i])) {
-                    if (dMsg[i] < 'A') { // adjust characters near the beginning of the alphabet
-                        dMsg[i] += 26;
+                if (isalpha(eMsg[i])) {
+                    int n = char(eMsg[i] - shiftValue);
+                    if (isupper(eMsg[i])) {
+                        if (int(eMsg[i] - shiftValue) < 65) { // adjust characters near the beginning of the alphabet
+                            n = char(eMsg[i] - shiftValue) + 26;
+                        }
+                        dMsg.push_back(n); //add character to decoded string
+                    }
+                    else {
+                        if (int(eMsg[i] - shiftValue) < 97) {
+                            n = char(eMsg[i] - shiftValue) + 26;
+                        }
+                        dMsg.push_back(n); //add character to decoded string
                     }
                 }
                 else {
-                    if (dMsg[i] < 'a') {
-                        dMsg[i] += 26;
-                    }
+                    dMsg.push_back(' ');
                 }
             }
             return dMsg;
@@ -58,11 +72,32 @@ class Rot13Cipher : public CaesarCipher { // derived class
     Rot13Cipher() : CaesarCipher(13) {}
 };
 
+int validateInteger() { // function: validate user input as integer
+    int value;
+    while (true) {
+        cout << "Enter a shift value (1-13): ";
+        cin >> value;
+        if (cin.fail()) {
+            cout << "Invalid input. Please enter an integer.\n";
+            cin.clear();
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        } else {
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            if (cin.gcount() > 1) {
+                cout << "Invalid input. Please enter only an integer.\n";
+                continue;
+            }
+            break;
+        }
+    }
+    return value;
+}
+
 bool encodePrompt() { // function: prompt user whether to encode a message
     string uInput = "";
     bool p = false;
     cout << "Do you want to encode a new message? (y/n or yes/no): ";
-    cin >> uInput;
+    getline(cin, uInput);
     while (true) { // iterate loop until proper input is entered
         if (uInput == "y" || uInput == "Y" || uInput == "yes" || uInput == "Yes") {
             p = true;
@@ -74,8 +109,7 @@ bool encodePrompt() { // function: prompt user whether to encode a message
         }
         else {
             cout << "Invalid input. Please enter y, n, yes, or no: ";
-
-            cin >> uInput;
+            getline(cin, uInput);
         }
     }
     return p;
@@ -90,7 +124,7 @@ bool decodePrompt(bool e) { // function: prompt user whether to decode a message
     else if (e) {
         cout << "Do you want to decode the recently captured message? (y/n or yes/no): ";
     }
-    cin >> uInput;
+    getline(cin, uInput);
     while (true) { // iterate loop until proper input is entered
         if (uInput == "y" || uInput == "Y" || uInput == "yes" || uInput == "Yes") {
             p = true;
@@ -102,7 +136,7 @@ bool decodePrompt(bool e) { // function: prompt user whether to decode a message
         }
         else {
             cout << "Invalid input. Please enter y, n, yes, or no: ";
-            cin >> uInput;
+            getline(cin, uInput);
         }
     }
     return p;
@@ -114,10 +148,10 @@ string runEncode() { // function: prompt user and run encode method
     bool condition = true;
     while (condition) { // iterate loop until proper input is entered
         cout << "Enter the message to be encoded: ";
-        cin >> message;
+        getline(cin, message);
         bool error = false;
         for (int i = 0; i < message.size(); i++) {
-            if (!isalpha(message[i])) {
+            if (!isalpha(message[i]) && message[i] != ' ') {
                 error = true;
                 break;
             }
@@ -129,11 +163,18 @@ string runEncode() { // function: prompt user and run encode method
             condition = false;
         }
     }
-    cout << "Enter a shift value (1-13) to encode the message accordingly: ";
-    cin >> value;
-    CaesarCipher cipher(value); // create object to use for encoding
-    cout << "Encoded message using Caesar Cipher (shift value " << value << "): " << cipher.getEncode(message) << endl;
-    return cipher.getEncode(message);
+    cout << "Choose an integer to encode the message accordingly.\n";
+    value = validateInteger();
+    if (value == 13) { 
+        Rot13Cipher rot13; // create object to use for encoding
+        cout << "Encoded message using Rot13 Cipher (shift value " << value << "): " << rot13.getEncode(message) << endl;
+        return rot13.getEncode(message);
+    }
+    else {
+        CaesarCipher cipher(value); // create object to use for encoding
+        cout << "Encoded message using Caesar Cipher (shift value " << value << "): " << cipher.getEncode(message) << endl;
+        return cipher.getEncode(message);
+    }
 }
 
 void runDecode(bool e, const string msg) { // function: prompt user and run decode method
@@ -143,10 +184,10 @@ void runDecode(bool e, const string msg) { // function: prompt user and run deco
         bool condition = true;
         while (condition) { // iterate loop until proper input is entered
             cout << "Enter the captured message: ";
-            cin >> eMessage;
+            getline(cin, eMessage);
             bool error = false;
             for (int i = 0; i < eMessage.size(); i++) {
-                if (!isalpha(eMessage[i])) {
+                if (!isalpha(eMessage[i]) && eMessage[i] != ' ') {
                     error = true;
                     break;
                 }
@@ -165,14 +206,22 @@ void runDecode(bool e, const string msg) { // function: prompt user and run deco
     bool decoding = true;
     string uInput;
     while (decoding) { // run loop until user is satisfied attempting decode
-        cout << "Enter your guess for the shift value (1-13) to decode the message: ";
-        cin >> value;
-        cout << "Decoding message using Caesar Cipher:\n";
-        CaesarCipher cipher(value); // create object to use for decoding and print messages
-        cout << "Encoded message: " << eMessage << endl;
-        cout << "Decoded message: " << cipher.decode(eMessage) << endl;
+        cout << "What is your guess?\n";
+        value = validateInteger();
+        if (value == 13) {
+            cout << "Decoding message using Rot13 Cipher:\n";
+            Rot13Cipher rot13; // create object to use for decoding and print messages
+            cout << "Encoded message: " << eMessage << endl;
+            cout << "Decoded message: " << rot13.decode(eMessage) << endl;
+        }
+        else {
+            cout << "Decoding message using Caesar Cipher:\n";
+            CaesarCipher cipher(value); // create object to use for decoding and print messages
+            cout << "Encoded message: " << eMessage << endl;
+            cout << "Decoded message: " << cipher.decode(eMessage) << endl;
+        }
         cout << "Is the decoded message correct? (y/n or yes/no): ";
-        cin >> uInput;
+        getline(cin, uInput);
         string uInput2;
         while (true) { // iterate loop until user enters proper input
             if (uInput == "y" || uInput == "Y" || uInput == "yes" || uInput == "Yes") {
@@ -182,7 +231,7 @@ void runDecode(bool e, const string msg) { // function: prompt user and run deco
             }
             else if (uInput == "n" || uInput == "N" || uInput == "no" || uInput == "No") {
                 cout << "Do you want to try again with a different shift value? (y/n or yes/no): ";
-                cin >> uInput2;
+                getline(cin, uInput2);
                 if (uInput2 == "y" || uInput2 == "Y" || uInput2 == "yes" || uInput2 == "Yes") {
                     break;
                 }
@@ -206,17 +255,16 @@ int main() { // main function: displays welcome message & loops through program 
     bool ePrompt = true;
     bool dPrompt = true;
     string msg;
-    while (ePrompt == true || dPrompt == true) {
+    while (ePrompt || dPrompt ) {
         ePrompt = encodePrompt();
-        if (ePrompt == true) {
+        if (ePrompt) {
             msg = runEncode();
         }
         dPrompt = decodePrompt(ePrompt);
-        if (dPrompt == true) {
+        if (dPrompt) {
             runDecode(ePrompt, msg);
         }
     }
     cout << "Exiting the program.\n";
     return 0;
 }
-
